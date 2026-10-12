@@ -224,3 +224,5 @@ anything. When you're ready to grow it:
   `config.js`'s `NAV_ITEMS` becomes the data source for a `<Route>` list.
 - **Add a build step**: introduce Vite once Node.js is installed, and
   this same folder structure drops in with minimal changes.
+#   m o b i l e - u i  
+ 
