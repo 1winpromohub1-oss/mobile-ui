@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Contact · Meesho</title>
+    <meta name="description" content="Contact form layout example." />
+
+    <!-- Browser chrome color: the light default, plus a dark-scheme override
+         so an OS-level dark theme is respected. An explicit in-app dark
+         choice on a light device keeps the default (this meta cannot react
+         to that; see js/theme-init.js). -->
+    <meta name="theme-color" content="#570d48" />
+    <meta name="theme-color" content="#0b1120" media="(prefers-color-scheme: dark)" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Meesho" />
+    <link rel="manifest" href="../manifest.webmanifest" />
+    <link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml" />
+
+    <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/variables.css" />
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/layout.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/responsive.css" />
+
+    <!-- Apply the stored/preferred theme before the first paint to avoid a
+         flash of the wrong theme. This must stay a classic script:
+         type="module" scripts are deferred and would run after the paint. -->
+    <script src="../js/theme-init.js"></script>
+  </head>
+  <body>
+    <div class="app">
+      <div id="app-header"></div>
+
+      <main class="app-main" id="app-main">
+        <div class="page-head">
+          <h1 class="page-head__title">Contact</h1>
+          <p class="page-head__subtitle">
+            A form layout example — wire it to a backend later.
+          </p>
+        </div>
+
+        <section class="page-section content-column">
+          <form class="card stack" id="contact-form" novalidate>
+            <div class="field">
+              <label class="field__label" for="name">Name</label>
+              <input
+                class="field__input"
+                id="name"
+                name="name"
+                type="text"
+                autocomplete="name"
+                placeholder="Your name"
+              />
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="email">Email</label>
+              <input
+                class="field__input"
+                id="email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                inputmode="email"
+                placeholder="you@example.com"
+              />
+              <span class="field__hint">
+                We'll only use this to reply to you.
+              </span>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="message">Message</label>
+              <textarea
+                class="field__textarea"
+                id="message"
+                name="message"
+                placeholder="How can we help?"
+              ></textarea>
+            </div>
+
+            <button class="btn btn--primary btn--block" type="submit">
+              Send message
+            </button>
+          </form>
+        </section>
+
+        <section class="page-section content-column">
+          <div class="card">
+            <h3 class="card__title">Note</h3>
+            <p class="card__text">
+              This form is a UI-only example. It does not submit anywhere yet.
+              Hook it up to your API when you add a backend.
+            </p>
+          </div>
+        </section>
+      </main>
+
+      <div id="app-footer"></div>
+    </div>
+
+    <div id="app-bottom-nav"></div>
+
+    <script type="module" src="../js/main.js"></script>
+    <script type="module" src="../js/pages/contact.js"></script>
+  </body>
+</html>

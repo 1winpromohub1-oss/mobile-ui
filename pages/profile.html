@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Profile · Meesho</title>
+    <meta name="description" content="Demo profile sign-in form." />
+    <meta name="theme-color" content="#570d48" />
+    <meta name="theme-color" content="#0b1120" media="(prefers-color-scheme: dark)" />
+    <link rel="manifest" href="../manifest.webmanifest" />
+    <link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/variables.css" />
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/layout.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/responsive.css" />
+    <script src="../js/theme-init.js"></script>
+  </head>
+  <body>
+    <div class="app">
+      <div id="app-header"></div>
+      <main class="app-main profile-main" id="app-main">
+        <div class="page-head">
+          <h1 class="page-head__title">Your profile</h1>
+          <p class="page-head__subtitle">Sign in to see your profile details.</p>
+        </div>
+        <section class="page-section content-column">
+          <form class="card stack" id="profile-form">
+            <div class="field">
+              <label class="field__label" for="profile-name">Name</label>
+              <input class="field__input" id="profile-name" name="name" type="text" autocomplete="name" placeholder="Enter your name" required minlength="2" maxlength="60" />
+            </div>
+            <div class="field">
+              <label class="field__label" for="profile-phone">Phone number</label>
+              <input class="field__input" id="profile-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="Enter your phone number" required pattern="[0-9+() -]{7,20}" title="Enter a valid phone number." />
+              <span class="field__hint">Demo only — no OTP will be sent and no account is created.</span>
+            </div>
+            <div class="field">
+              <label class="field__label" for="profile-gender">Gender</label>
+              <select class="field__input" id="profile-gender" name="gender" required>
+                <option value="" disabled selected>Select your gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+            <button class="btn btn--primary btn--block" type="submit">Continue</button>
+            <p id="profile-status" class="field__hint" role="status" aria-live="polite"></p>
+          </form>
+          <div class="card profile-card" id="profile-card" hidden>
+            <h2 class="card__title">Welcome, <span id="profile-display-name"></span>!</h2>
+            <p class="card__text">Phone: <span id="profile-display-phone"></span></p>
+            <p class="card__text">Gender: <span id="profile-display-gender"></span></p>
+            <button class="btn btn--outline" id="profile-signout" type="button">Sign out</button>
+          </div>
+        </section>
+        <section class="page-section content-column">
+          <p class="field__hint">This is a front-end demo. Your details stay in this browser and are not sent to a server.</p>
+        </section>
+      </main>
+      <div id="app-footer"></div>
+    </div>
+    <div id="app-bottom-nav"></div>
+    <script type="module" src="../js/main.js"></script>
+    <script type="module" src="../js/pages/profile.js"></script>
+  </body>
+</html>

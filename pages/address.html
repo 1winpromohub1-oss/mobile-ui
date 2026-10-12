@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Delivery address · Meesho</title>
+    <meta name="description" content="Enter an address to receive your Spin & Win prize." />
+    <meta name="theme-color" content="#570d48" />
+    <meta name="theme-color" content="#0b1120" media="(prefers-color-scheme: dark)" />
+    <link rel="manifest" href="../manifest.webmanifest" />
+    <link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/variables.css" />
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/layout.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/responsive.css" />
+    <script src="../js/theme-init.js"></script>
+  </head>
+  <body>
+    <div class="app">
+      <div id="app-header"></div>
+      <main class="app-main" id="app-main">
+        <div class="page-head">
+          <h1 class="page-head__title">Delivery address</h1>
+          <p class="page-head__subtitle">Add your address to get your Spin &amp; Win prize delivered.</p>
+        </div>
+        <section class="page-section content-column">
+          <div class="card stack" id="address-order" aria-live="polite">
+            <p>Loading your prize…</p>
+          </div>
+          <form class="card stack" id="address-form" hidden>
+            <p class="spin-win__address-countdown" id="address-countdown" role="timer" aria-live="off" aria-label="Time remaining to enter delivery address"></p>
+            <div class="field">
+              <label class="field__label" for="delivery-name">Full name</label>
+              <input class="field__input" id="delivery-name" name="name" autocomplete="name" required maxlength="80" />
+            </div>
+            <div class="field">
+              <label class="field__label" for="delivery-phone">Phone number</label>
+              <input class="field__input" id="delivery-phone" name="phone" type="tel" autocomplete="tel" required pattern="[0-9+() -]{7,20}" title="Enter a valid phone number." />
+            </div>
+            <div class="field">
+              <label class="field__label" for="delivery-address">Street address</label>
+              <textarea class="field__textarea" id="delivery-address" name="address" autocomplete="street-address" required maxlength="200"></textarea>
+            </div>
+            <div class="field">
+              <label class="field__label" for="delivery-city">City</label>
+              <input class="field__input" id="delivery-city" name="city" autocomplete="address-level2" required maxlength="80" />
+            </div>
+            <div class="field">
+              <label class="field__label" for="delivery-postal">Postal code</label>
+              <input class="field__input" id="delivery-postal" name="postalCode" autocomplete="postal-code" inputmode="numeric" required pattern="[0-9]{5,10}" title="Enter a valid postal code." />
+            </div>
+            <button class="btn btn--primary btn--block" type="submit">Continue to payment</button>
+            <p class="field__hint">Demo only: your details stay in this browser and are not sent.</p>
+            <p class="field__hint" id="address-status" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+      </main>
+      <div id="app-footer"></div>
+    </div>
+    <div id="app-bottom-nav"></div>
+    <script type="module" src="../js/main.js"></script>
+    <script type="module" src="../js/pages/address.js"></script>
+  </body>
+</html>

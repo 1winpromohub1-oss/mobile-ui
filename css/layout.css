@@ -1,0 +1,242 @@
+/* layout.css — app shell structure
+   Mobile: fixed top bar + scrollable main + fixed bottom nav.
+   Desktop (md+): top bar + side nav, no bottom nav. */
+
+/* ---- App shell (fills the viewport, respects safe areas) ---- */
+.app {
+  min-height: 100vh;
+  min-height: 100dvh; /* avoids mobile URL-bar jump */
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg);
+  /* Bottom-nav clearance lives on the shell rather than on .app-main: the
+     footer is the last element inside .app, so clearance on .app-main left
+     the footer sitting underneath the fixed bottom nav. border-box sizing
+     keeps this inside min-height, so it adds no phantom scroll. */
+  padding-bottom: calc(
+    var(--bottom-nav-height) + var(--safe-bottom) + var(--space-4)
+  );
+}
+
+/* =========================================================
+   TOP APP BAR
+   ========================================================= */
+/* The sticky positioning lives on the #app-header slot (a direct
+   child of .app) so its containing block spans the full page
+   height. Sticking the inner .app-header would fail, because its
+   parent is only as tall as the header itself. */
+#app-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+}
+
+.app-header {
+  /* min-height, not height: from md+ the header stacks a second row
+     (see .app-header__row--sub) and has to grow to fit it. */
+  min-height: calc(var(--bar-height) + var(--safe-top));
+  padding-top: var(--safe-top);
+  padding-left: var(--safe-left);
+  padding-right: var(--safe-right);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.app-header__inner {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2); /* breathing room between row 1 and the category row */
+}
+
+/* One horizontal band of the header. Row 1 (brand + search + account
+   links) is always visible; row 2 is the category strip and also shows at
+   every size. */
+.app-header__row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: var(--space-3);
+}
+
+.app-header__row--main {
+  min-height: var(--bar-height);
+}
+
+/* Row 2: the scrollable category strip. Unlike row 1 it is visible at
+   every screen size, so it never needs revealing by responsive.css. */
+.app-header__row--sub {
+  display: flex;
+  min-height: var(--subbar-height);
+  gap: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+/* Wrapper that hands the row's full width to the category scroller.
+   min-width: 0 is essential: a flex child refuses to shrink below its
+   content, so without it the chips would widen the header instead of
+   scrolling inside it. */
+.app-header__cats {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.app-header__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 700;
+  font-size: var(--fs-lg);
+  color: var(--color-text);
+}
+
+/* Brand wordmark (assets/icons/meeshoLogo.svg). Height is the only knob:
+   width stays auto, so the 156:36 artwork can never be stretched. */
+.app-header__brand-logo {
+  height: 31.68px;
+  width: auto;
+  display: block;
+  flex-shrink: 0;
+}
+
+/* The artwork's brand purple (#570D48) has almost no contrast against the
+   dark surface, so render the wordmark as solid white in the dark theme. */
+[data-theme="dark"] .app-header__brand-logo {
+  filter: brightness(0) invert(1);
+}
+
+/* Right-aligned group holding the account links + theme toggle.
+   Pushes itself (and everything in it) to the far right on every
+   screen size, which keeps the toggle right-aligned on mobile too. */
+.app-header__actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+/* Header search field and utility-link groups. Both are md+ only, so they
+   start hidden here and responsive.css reveals them. The hiding lives on
+   these header-scoped classes rather than on .search itself, which keeps
+   the .search component reusable on a page. */
+.app-header__search {
+  display: none;
+  flex: 1 1 auto;
+  max-width: 40rem;
+}
+
+.app-header__menu {
+  display: none;
+  align-items: center;
+  gap: var(--space-4);
+  margin-left: auto;
+}
+
+.app-header__spacer {
+  margin-left: auto;
+}
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+.app-main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+  /* Bottom breathing room only - the shell (.app) owns the clearance for
+     the fixed bottom nav, so the footer is never covered by it. */
+  padding-bottom: var(--space-6);
+  padding-top: var(--space-5);
+}
+
+/* Reading-width column for text-heavy pages */
+.content-column {
+  max-width: var(--content-max);
+}
+
+/* Vertical rhythm between page sections */
+.page-section + .page-section {
+  margin-top: var(--space-6);
+}
+
+/* =========================================================
+   PAGE HEADER (title + subtitle block)
+   ========================================================= */
+.page-head {
+  margin-bottom: var(--space-5);
+}
+
+.page-head__title {
+  font-size: var(--fs-2xl);
+}
+
+.page-head__subtitle {
+  margin-top: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--fs-sm);
+}
+
+/* =========================================================
+   BOTTOM NAVIGATION (mobile primary navigation)
+   ========================================================= */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-nav);
+  height: calc(var(--bottom-nav-height) + var(--safe-bottom));
+  padding-bottom: var(--safe-bottom);
+  padding-left: var(--safe-left);
+  padding-right: var(--safe-right);
+  background-color: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  align-items: stretch;
+  box-shadow: 0 -2px 10px rgba(15, 23, 42, 0.05);
+}
+
+.bottom-nav__inner {
+  width: 100%;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  display: flex;
+  align-items: stretch;
+}
+
+/* =========================================================
+   FOOTER (content footer, sits above the bottom nav)
+   ========================================================= */
+.app-footer {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding: var(--space-5) var(--space-4);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: var(--fs-sm);
+  text-align: center;
+}
+
+/* =========================================================
+   GRID / STACK UTILITIES
+   ========================================================= */
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: 1fr; /* single column on mobile */
+}

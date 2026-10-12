@@ -1,0 +1,19 @@
+{
+  "name": "Meesho",
+  "short_name": "Meesho",
+  "description": "A mobile-first UI base architecture.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#570d48",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "./assets/icons/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

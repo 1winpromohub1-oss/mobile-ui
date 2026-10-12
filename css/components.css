@@ -1,0 +1,822 @@
+/* components.css — reusable UI components
+   Building blocks used across all pages. */
+
+/* =========================================================
+   BUTTONS  (min 44px touch target)
+   ========================================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: var(--space-3) var(--space-5);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  line-height: 1;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color var(--transition-fast),
+    border-color var(--transition-fast), transform var(--transition-fast),
+    opacity var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn--primary {
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+}
+.btn--primary:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.btn--outline {
+  background-color: transparent;
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+.btn--outline:hover {
+  background-color: var(--color-surface-alt);
+}
+
+.btn--ghost {
+  background-color: transparent;
+  color: var(--color-primary);
+}
+.btn--ghost:hover {
+  background-color: var(--color-primary-soft);
+}
+
+.btn--block {
+  width: 100%;
+}
+
+.btn[disabled] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+.card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-sm);
+}
+
+.card__title {
+  font-size: var(--fs-lg);
+  margin-bottom: var(--space-2);
+}
+
+.card__text {
+  color: var(--color-text-muted);
+  font-size: var(--fs-sm);
+}
+
+.card + .card {
+  margin-top: var(--space-4);
+}
+
+/* =========================================================
+   NAV ITEMS (used in the mobile bottom nav)
+   ========================================================= */
+.nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  transition: color var(--transition-fast),
+    background-color var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav-item__icon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.nav-item:hover {
+  color: var(--color-text);
+}
+
+/* Active page highlighting */
+.nav-item.is-active {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* =========================================================
+   FORMS
+   ========================================================= */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.field__label {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.field__input,
+.field__textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--fs-base); /* >=16px prevents iOS zoom on focus */
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+/* Keep native select controls and their option list aligned with the active
+   app theme instead of the browser/OS default palette. */
+.field__input,
+.field__textarea {
+  color-scheme: light;
+}
+
+[data-theme="dark"] .field__input,
+[data-theme="dark"] .field__textarea {
+  color-scheme: dark;
+}
+
+select.field__input,
+select.field__input option {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+}
+
+.field__textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.field__input:focus,
+.field__textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-soft);
+}
+
+.field__hint {
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+}
+
+/* Center the profile content in the space between the shared header and footer. */
+.profile-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.profile-main .page-head,
+.profile-main .content-column {
+  width: 100%;
+  max-width: var(--content-max);
+  margin-inline: auto;
+}
+
+.profile-main .page-head {
+  text-align: center;
+}
+
+.profile-main .page-section + .page-section {
+  margin-top: var(--space-4);
+}
+
+/* =========================================================
+   BADGES / PILLS
+   ========================================================= */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+/* =========================================================
+   ICON BUTTON (for header actions like theme toggle)
+   ========================================================= */
+.icon-btn {
+  width: 44px;
+  height: 44px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font-size: 1.2rem;
+  transition: background-color var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.icon-btn:hover {
+  background-color: var(--color-surface-alt);
+}
+
+/* =========================================================
+   SEARCH FIELD (header search; reusable on a page too)
+   ========================================================= */
+.search {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding-inline: var(--space-3);
+  background-color: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.search:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-soft);
+}
+
+.search__input {
+  flex: 1;
+  align-self: stretch; /* whole field is tappable/focusable, not just the text */
+  min-width: 0; /* let the field shrink instead of overflowing the row */
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  color: var(--color-text);
+  font-size: var(--fs-base); /* >=16px prevents iOS zoom on focus */
+  appearance: none; /* drop UA search-field styling (border/rounding) */
+}
+
+/* The wrapper owns the focus ring, so drop the input's own outline. */
+.search__input:focus,
+.search__input:focus-visible {
+  outline: none;
+}
+
+.search__input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.search__btn {
+  flex-shrink: 0;
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  line-height: 1;
+  transition: background-color var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.search__btn:hover {
+  background-color: var(--color-surface);
+}
+
+/* =========================================================
+   MENU LINK (header utility links: Profile, Cart, ...)
+   ========================================================= */
+.menu-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding-inline: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  transition: color var(--transition-fast),
+    background-color var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.menu-link:hover {
+  color: var(--color-primary);
+  background-color: var(--color-surface-alt);
+}
+
+.menu-link__icon {
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+/* Profile/Cart are icon + label. The label is dropped at md so the long
+   search placeholder still fits; responsive.css brings it back at lg+. */
+.app-header__menu--main .menu-link__label {
+  display: none;
+}
+
+/* =========================================================
+   CATEGORY STRIP (header row 2 - scrolls left to right)
+   ========================================================= */
+.category-scroller {
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: auto; /* the whole point: chips scroll, they never wrap */
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+  /* Scrollbar hidden on purpose: the row is swipeable/draggable, and the
+     chip clipped at the edge is the cue that there is more to see. */
+  scrollbar-width: none;
+  padding-block: var(--space-1);
+  /* Bleed into the header's own padding so chips scroll under its edge,
+     then pad the content back out to the normal content edge. */
+  margin-inline: calc(-1 * var(--space-4));
+  padding-inline: var(--space-4);
+  scroll-padding-inline: var(--space-4);
+}
+
+/* Same for WebKit (Chrome/Safari/Edge), which ignores scrollbar-width. */
+.category-scroller::-webkit-scrollbar {
+  display: none;
+}
+
+/* Chips must keep their natural width: flex: 0 0 auto is what makes the row
+   overflow (and therefore scroll) instead of squashing the labels. */
+.category-scroller > li {
+  flex: 0 0 auto;
+  display: flex;
+  scroll-snap-align: start;
+}
+
+/* Text-only chip: no background, so the row reads as a link strip and the
+   theme color appears only as the hover/focus highlight. */
+.category-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px; /* keeps the base's >=44px touch-target rule */
+  padding-inline: var(--space-2);
+  white-space: nowrap;
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--color-text);
+  transition: color var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.category-link:hover,
+.category-link:focus-visible {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* =========================================================
+   HERO BANNER (full-bleed, natural aspect ratio)
+   ========================================================= */
+/* The artwork is 1920x532 (3.61:1) and its message sits in the left ~40%,
+   so the height stays automatic: the whole banner is visible at every
+   width and never gets cropped. The promo wheel overlay sits in the third
+   of the four parts; see the SPIN & WIN section at the end of this file. */
+.hero {
+  position: relative; /* positioning context for the Spin & Win overlay */
+  /* The banner reads as four equal parts: the artwork spans all four (see
+     .hero__img) and the promo wheel sits in the third one (see .spin-win),
+     which is exactly where the artwork turns into its flat plate. */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  /* Cancel .app-main's side padding so the banner reaches the screen edge.
+     Mirrors .app-main's own padding token, so the two cannot drift apart
+     (responsive.css does the same for the wider >=1024px padding). */
+  margin-inline: calc(-1 * var(--space-4));
+}
+
+.hero__img {
+  grid-area: 1 / 1 / 2 / -1; /* spans all four parts, so nothing is sliced */
+  display: block;
+  width: 100%;
+  height: auto; /* keeps the 3.61:1 ratio instead of stretching the banner */
+}
+
+/* The mount slot is not a part of its own: display: contents removes its box,
+   so the widget and its result line become grid items and place themselves in
+   the parts (third and fourth). The grid-area is the fallback for a browser
+   without contents support, where the slot itself stays the third part. */
+#hero-spin {
+  display: contents;
+  grid-area: 1 / 3 / 2 / 4;
+}
+
+/* =========================================================
+   SPIN & WIN (promo wheel in the third of the hero's four parts)
+   ========================================================= */
+/* The wheel is laid on top of the banner instead of beside it, inside the third
+   of the four parts the grid creates (see .hero). The artwork is a flat plate
+   from 49% of its width, so nothing is cropped or shrunk. Every size below
+   derives from --spin-size, and responsive.css steps that one token up at
+   480/768/1024px. The plate keeps its 3.61:1 ratio, so the hero grows in
+   step with the wheel and the widget stays inside the artwork. */
+.spin-win {
+  /* A plain grid item: the third of the banner's four parts, with this flex
+     column centring the wheel inside it. Nothing here is absolutely
+     positioned, so the wheel can never escape its part. */
+  grid-area: 1 / 3 / 2 / 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  --spin-size: clamp(80px, calc(25vw - 4px), 116px); /* as wide as its part allows */
+  text-align: center;
+  pointer-events: none; /* only the wheel itself takes taps */
+}
+
+.spin-win__stage {
+  position: relative;
+  width: var(--spin-size);
+  height: var(--spin-size);
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.spin-win__wheel {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  /* Clips every slice to the circle: the slice photos are straight-sided, and
+     this is what turns them into proper pie wedges. The ring below is an
+     outside box-shadow, so it is not clipped. */
+  overflow: hidden;
+  /* Rim + lift: a white ring and a soft shadow, so the wheel reads as a
+     sticker on the banner without needing a second element. */
+  box-shadow: 0 0 0 3px #ffffff, 0 0 0 4px rgba(87, 13, 72, 0.35),
+    0 6px 14px rgba(0, 0, 0, 0.35);
+  /* --rotation is written by js/components/spinWheel.js, and --spin-duration
+     comes from SPIN_WHEEL.spinMs in js/config.js. The easing only shapes the
+     travel - the landing angle is exact either way. */
+  transform: rotate(var(--rotation, 0deg));
+  transition: transform var(--spin-duration, 3800ms)
+    cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* One slice per prize: the full-size square is rotated onto the middle of that
+   slice's wedge, so its contents land in the wedge whatever the slice angle. */
+.spin-wheel__slice {
+  position: absolute;
+  inset: 0;
+  transform: rotate(calc(var(--i) * var(--slice) + var(--slice) / 2));
+}
+
+/* The wedge media box: the rim chord of one slice spans x 25% to 75%, and the
+   hub (radius 19%) takes the middle below y 31%, so that band is the slice's
+   usable area. The photo fills it; the clip follows the wedge's two straight
+   sides (where they cross the box edge at y 21.6%) and keeps the rim corners,
+   which the wheel's own circle then trims - so the slice's outer edge is an
+   arc rather than a chord. */
+.spin-wheel__img {
+  position: absolute;
+  left: 25%;
+  top: 0;
+  width: 50%;
+  height: 31%;
+  object-fit: contain;
+  padding: 4%;
+  background: #ffffff;
+  clip-path: polygon(28% 100%, 0 21.6%, 0 0, 100% 0, 100% 21.6%, 72% 100%);
+}
+
+/* A prize with no artwork (the cash slice) fills the same wedge, with its label
+   drawn straight on the slice in that prize's text colour. */
+.spin-wheel__text {
+  position: absolute;
+  left: 25%;
+  top: 0;
+  width: 50%;
+  height: 31%;
+  display: grid;
+  place-items: center;
+  clip-path: polygon(28% 100%, 0 21.6%, 0 0, 100% 0, 100% 21.6%, 72% 100%);
+  font-size: clamp(9px, calc(var(--spin-size) * 0.075), 18px);
+  font-weight: 800;
+  line-height: 1;
+}
+
+/* Gold pointer at 12 o'clock: whichever slice it rests on has won. */
+.spin-win__pointer {
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  margin-left: -6px;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 11px solid #ffd166;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+  z-index: 3;
+}
+
+.spin-win__hub {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 38%;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  transform: translate(-50%, -50%);
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: #ffd166;
+  font-size: clamp(7px, calc(var(--spin-size) * 0.085), 14px);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  transition: background-color var(--transition-fast),
+    transform var(--transition-fast), opacity var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+  z-index: 2;
+}
+
+.spin-win__hub:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.spin-win__hub:active {
+  transform: translate(-50%, -50%) scale(0.94);
+}
+
+/* Mid-spin the button is disabled, but it should still look available rather
+   than flash the browser's greyed-out default. */
+.spin-win__hub[disabled] {
+  opacity: 0.75;
+  cursor: default;
+}
+
+/* Caption above the wheel: it needs more vertical room than a phone's banner
+   strip has, so responsive.css reveals it from md+. */
+.spin-win__title {
+  display: none;
+  margin: 0;
+  font-size: var(--fs-sm);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+
+
+/* The result badge: the fourth part of the banner, on the flat plate beside
+   the wheel and centred in the banner's height. Like the wheel it is a grid
+   item, so the parts (never offsets) decide where it lands. */
+.spin-win__result {
+  grid-area: 1 / 4 / 2 / 5;
+  align-self: center;
+  text-align: center;
+  margin-inline: var(--space-1);
+  padding: var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font-size: var(--fs-xs); /* a quarter of a phone banner is 80-108px wide */
+  font-weight: 600;
+  line-height: var(--lh-normal);
+  box-shadow: var(--shadow-lg);
+  pointer-events: none;
+}
+
+/* Nothing spun yet - never show an empty badge. */
+.spin-win__result:empty {
+  display: none;
+}
+
+/* Full-screen spin experience opened from the banner wheel. */
+.spin-win__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  display: grid;
+  place-items: center;
+  overflow-y: auto;
+  padding: max(var(--space-6), var(--safe-top)) var(--space-4)
+    max(var(--space-6), var(--safe-bottom));
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.spin-win__overlay[hidden] {
+  display: none;
+}
+
+.spin-win-open {
+  overflow: hidden;
+}
+
+.spin-win__overlay-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+  width: min(100%, 34rem);
+  text-align: center;
+}
+
+.spin-win__overlay-title {
+  margin: 0;
+  color: var(--color-primary);
+  font-size: var(--fs-2xl);
+  font-weight: 800;
+}
+
+.spin-win__overlay-stage {
+  --spin-size: min(78vw, 62dvh, 420px);
+  flex: 0 0 auto;
+  cursor: pointer;
+}
+
+.spin-win__overlay-stage[hidden],
+.spin-win__payment-gate[hidden] {
+  display: none;
+}
+
+.spin-win__payment-gate {
+  width: min(100%, 28rem);
+  text-align: center;
+}
+
+.spin-win__overlay-stage .spin-win__hub {
+  font-size: clamp(1rem, 4vw, 1.5rem);
+}
+
+.spin-win__overlay-result {
+  min-height: 1.5em;
+  margin: 0;
+  color: var(--color-text);
+  font-size: var(--fs-lg);
+  font-weight: 700;
+}
+
+.spin-win__countdown {
+  max-width: 100%;
+  margin: 0;
+  color: var(--color-primary);
+  font-size: var(--fs-lg);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.spin-win__countdown--preview {
+  display: none;
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-md);
+  background: #ffffff;
+  color: var(--color-primary);
+  font-size: clamp(9px, 2.5vw, 12px);
+  line-height: 1.3;
+  box-shadow: var(--shadow-md);
+}
+
+.spin-win__countdown--urgent {
+  color: #c62828;
+  animation: spin-win-countdown-pulse 1s ease-in-out infinite alternate;
+}
+
+.spin-win__countdown--preview.spin-win__countdown--urgent {
+  color: #c62828;
+}
+
+@keyframes spin-win-countdown-pulse {
+  to {
+    opacity: 0.65;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spin-win__countdown--urgent {
+    animation: none;
+  }
+}
+
+.spin-win__win-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  width: min(100%, 28rem);
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-md);
+  text-align: left;
+}
+
+.spin-win__win-panel[hidden],
+.spin-win__delivery-button[hidden] {
+  display: none;
+}
+
+.spin-win__win-message {
+  text-align: center;
+}
+
+.spin-win__address-countdown {
+  margin: 0;
+  color: var(--color-primary);
+  font-weight: 800;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.spin-win__win-panel[hidden] {
+  display: none;
+}
+
+.spin-win__win-image {
+  width: clamp(76px, 22vw, 112px);
+  aspect-ratio: 1;
+  flex: 0 0 auto;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+  background: #ffffff;
+}
+
+.spin-win__win-message {
+  margin: 0;
+  color: var(--color-primary);
+  font-size: var(--fs-lg);
+  font-weight: 800;
+}
+
+.spin-win__overlay-hint {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--fs-sm);
+}
+
+.spin-win__close {
+  position: absolute;
+  top: max(var(--space-4), var(--safe-top));
+  right: max(var(--space-4), var(--safe-right));
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* Keep the countdown visible outside the full-screen wheel. On phones, pin it
+   above the bottom navigation; on wider screens, show it below the banner wheel. */
+@media (max-width: 767px) {
+  .spin-win__countdown--preview {
+    display: block;
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--fs-sm);
+    box-shadow: var(--shadow-lg);
+    pointer-events: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .spin-win__countdown--preview {
+    display: block;
+  }
+}
+
+@media (max-height: 480px) {
+  .spin-win__overlay-content {
+    gap: var(--space-2);
+  }
+
+  .spin-win__overlay-stage {
+    --spin-size: min(58vw, 54dvh, 300px);
+  }
+}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Meesho</title>
+    <meta name="description" content="A mobile-first UI base architecture." />
+
+    <!-- Makes the app feel native + installable on phones -->
+    <!-- Browser chrome color: the light default, plus a dark-scheme override
+         so an OS-level dark theme is respected. An explicit in-app dark
+         choice on a light device keeps the default (this meta cannot react
+         to that; see js/theme-init.js). -->
+    <meta name="theme-color" content="#570d48" />
+    <meta name="theme-color" content="#0b1120" media="(prefers-color-scheme: dark)" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Meesho" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./assets/icons/favicon.svg" type="image/svg+xml" />
+
+    <!-- Ordered cascade: reset → tokens → base → layout → components → responsive -->
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/variables.css" />
+    <link rel="stylesheet" href="./css/base.css" />
+    <link rel="stylesheet" href="./css/layout.css" />
+    <link rel="stylesheet" href="./css/components.css" />
+    <link rel="stylesheet" href="./css/responsive.css" />
+
+    <!-- Apply the stored/preferred theme before the first paint to avoid a
+         flash of the wrong theme. This must stay a classic script:
+         type="module" scripts are deferred and would run after the paint. -->
+    <script src="./js/theme-init.js"></script>
+  </head>
+  <body>
+    <div class="app">
+      <!-- Header is injected by js/components/header.js -->
+      <div id="app-header"></div>
+
+      <main class="app-main" id="app-main">
+        <!-- Full-bleed hero banner. The banner image carries the promo
+             message, so the page keeps a real <h1> for assistive tech only
+             and the image itself is marked decorative (alt="") to avoid
+             announcing the same text twice.
+
+             #hero-spin is the slot for the "Spin & Win" wheel: js/pages/
+             home.js mounts the wheel and its result line into it, and they take
+             the third and the fourth of the banner's four parts (part 3 is
+             where the artwork turns into a flat plate), so nothing is cropped. -->
+        <h1 class="sr-only">Meesho Gold — Products you Love. Quality we Trust.</h1>
+
+        <section class="page-section hero">
+          <img
+            class="hero__img"
+            src="./assets/main.png"
+            alt=""
+            width="1920"
+            height="532"
+            fetchpriority="high"
+          />
+          <div id="hero-spin"></div>
+        </section>
+
+        <section class="page-section">
+          <div class="card">
+            <h3 class="card__title">Responsive by default</h3>
+            <p class="card__text">
+              This shell adapts to any screen: a thumb-friendly bottom nav on
+              phones, and a top navigation bar on tablets and desktops. Resize
+              the window to see it switch.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3 class="card__title">Scalable structure</h3>
+            <p class="card__text">
+              Design tokens, layout, components, and responsive rules each live
+              in their own file — so extending the UI never means editing a
+              single giant stylesheet.
+            </p>
+          </div>
+        </section>
+
+        <section class="page-section">
+          <div class="grid grid--2">
+            <div class="card">
+              <h3 class="card__title">Reusable components</h3>
+              <p class="card__text">
+                Buttons, cards, form fields, and nav items are ready to use and
+                easy to restyle.
+              </p>
+            </div>
+            <div class="card">
+              <h3 class="card__title">Themeable</h3>
+              <p class="card__text">
+                A built-in light/dark toggle persists the user's choice. Every
+                color comes from a single token file.
+              </p>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- Footer is injected by js/components/footer.js -->
+      <div id="app-footer"></div>
+    </div>
+
+    <!-- Bottom navigation is injected by js/components/bottomNav.js -->
+    <div id="app-bottom-nav"></div>
+
+    <script type="module" src="./js/main.js"></script>
+    <script type="module" src="./js/pages/home.js"></script>
+  </body>
+</html>

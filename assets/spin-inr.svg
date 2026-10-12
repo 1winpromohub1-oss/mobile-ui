@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewBox="0 0 640 640" fill="none">
+  <defs>
+    <linearGradient id="note" x1="104" y1="166" x2="540" y2="474" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D6F5D5"/>
+      <stop offset="1" stop-color="#7BC99A"/>
+    </linearGradient>
+    <linearGradient id="coin" x1="206" y1="180" x2="444" y2="450" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFE99A"/>
+      <stop offset="1" stop-color="#E9A92F"/>
+    </linearGradient>
+    <filter id="shadow" x="43" y="104" width="554" height="444" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#173A2D" flood-opacity=".22"/>
+    </filter>
+  </defs>
+  <g filter="url(#shadow)">
+    <rect x="86" y="152" width="468" height="336" rx="34" fill="url(#note)" stroke="#378C63" stroke-width="12"/>
+    <rect x="108" y="174" width="424" height="292" rx="24" stroke="#4BA374" stroke-width="5" stroke-dasharray="12 10"/>
+    <circle cx="320" cy="320" r="128" fill="url(#coin)" stroke="#B78324" stroke-width="10"/>
+    <circle cx="320" cy="320" r="108" stroke="#FFF1B8" stroke-width="5"/>
+    <path d="M166 225c31 0 54-23 54-54M474 225c-31 0-54-23-54-54M166 415c31 0 54 23 54 54M474 415c-31 0-54 23-54 54" stroke="#378C63" stroke-width="10" stroke-linecap="round"/>
+    <path d="M302 250h44c27 0 44 15 44 39 0 21-13 35-34 39l36 61h-38l-34-59h-10v59h-34V250h26Zm8 31v20h34c8 0 13-4 13-10s-5-10-13-10h-34Zm-24 91h78v25h-78v-25Z" fill="#207448"/>
+    <circle cx="143" cy="320" r="17" fill="#F3D777" stroke="#378C63" stroke-width="5"/>
+    <circle cx="497" cy="320" r="17" fill="#F3D777" stroke="#378C63" stroke-width="5"/>
+  </g>
+</svg>

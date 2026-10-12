@@ -1,0 +1,160 @@
+/* responsive.css — media queries (mobile-first)
+   Base styles target phones. These rules progressively
+   upgrade the layout for larger screens. */
+
+/* =========================================================
+   SMALL TABLETS & UP (>= 480px)
+   ========================================================= */
+@media (min-width: 480px) {
+  .grid--2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* =========================================================
+   TABLETS & UP (>= 768px)
+   - Hide the bottom nav; the header's search + utility row takes over
+   - Reclaim the bottom padding used by the bottom nav
+   ========================================================= */
+@media (min-width: 768px) {
+  /* Reveal the md+-only header pieces: the search field and the account
+     link group. (The category row below them shows at every size.) */
+  .app-header__search,
+  .app-header__menu {
+    display: flex;
+  }
+
+  .bottom-nav {
+    display: none;
+  }
+
+  /* No bottom nav to clear on md+ - give the space back to the content. */
+  .app {
+    padding-bottom: 0;
+  }
+
+  .app-main {
+    padding-bottom: var(--space-8);
+    padding-top: var(--space-8);
+  }
+
+  /* The header brand is a logo image now, so scale the artwork instead of
+     a font size (keeps the wordmark proportional to the md+ header). */
+  .app-header__brand-logo {
+    height: 37.44px;
+  }
+
+  .grid--2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* =========================================================
+   DESKTOP & UP (>= 1024px)
+   ========================================================= */
+@media (min-width: 1024px) {
+  .app-main {
+    padding-inline: var(--space-6);
+  }
+
+  /* Match the wider .app-main padding so the hero still bleeds to the
+     container's edge instead of leaving a 8px sliver. */
+  .hero {
+    margin-inline: calc(-1 * var(--space-6));
+  }
+
+  /* There is room for full labels now, so Profile/Cart show their text
+     instead of the icon alone (see .menu-link__label in components.css). */
+  .app-header__menu--main .menu-link__label {
+    display: inline;
+  }
+
+  .grid--4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* =========================================================
+   LANDSCAPE PHONES — tighten vertical spacing
+   ========================================================= */
+@media (max-height: 480px) and (orientation: landscape) {
+  .app-main {
+    padding-top: var(--space-3);
+  }
+
+  .page-head {
+    margin-bottom: var(--space-3);
+  }
+}
+
+/* =========================================================
+   PRINT — remove app chrome
+   ========================================================= */
+@media print {
+  .app-header,
+  .bottom-nav,
+  .app-footer {
+    display: none;
+  }
+
+  .app-main {
+    padding: 0;
+    max-width: none;
+  }
+
+  /* .app-main loses its padding here, so the hero's negative margin would
+     push the banner past the page margins. Lay it flat instead. */
+  .hero {
+    margin-inline: 0;
+  }
+}
+
+/* =========================================================
+   SPIN & WIN WHEEL — step --spin-size up with the banner
+   ========================================================= */
+/* Two things cap the wheel: it may not be wider than its part (a quarter of the
+   banner) and its left edge may not cross 49% of the banner, where the flat
+   plate ends and the artwork begins. Both fluid rules track 25vw minus a small
+   gutter for that reason, and the wider screens use fixed sizes that stay
+   inside those bounds. */
+@media (min-width: 480px) {
+  .spin-win {
+    --spin-size: clamp(116px, calc(25vw - 6px), 180px);
+  }
+}
+
+@media (min-width: 768px) {
+  .spin-win {
+    --spin-size: 180px;
+    gap: var(--space-2);
+  }
+
+  .spin-win__title {
+    display: block;
+  }
+
+  /* The fourth part is wide enough for the comfortable type size now. */
+  .spin-win__result {
+    font-size: var(--fs-sm);
+  }
+}
+
+@media (min-width: 1024px) {
+  .spin-win {
+    --spin-size: 236px;
+  }
+}
+
+@media print {
+  /* A promo sticker on the artwork, and its badge beside it - nothing to
+     print. The badge is a grid item of the hero, not a child of the wheel,
+     so it needs naming here as well. */
+  .spin-win,
+  .spin-win__result {
+    display: none;
+  }
+}

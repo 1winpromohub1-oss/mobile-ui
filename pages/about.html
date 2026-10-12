@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>About · Meesho</title>
+    <meta name="description" content="About this mobile-first UI base." />
+
+    <!-- Browser chrome color: the light default, plus a dark-scheme override
+         so an OS-level dark theme is respected. An explicit in-app dark
+         choice on a light device keeps the default (this meta cannot react
+         to that; see js/theme-init.js). -->
+    <meta name="theme-color" content="#570d48" />
+    <meta name="theme-color" content="#0b1120" media="(prefers-color-scheme: dark)" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Meesho" />
+    <link rel="manifest" href="../manifest.webmanifest" />
+    <link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml" />
+
+    <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/variables.css" />
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/layout.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/responsive.css" />
+
+    <!-- Apply the stored/preferred theme before the first paint to avoid a
+         flash of the wrong theme. This must stay a classic script:
+         type="module" scripts are deferred and would run after the paint. -->
+    <script src="../js/theme-init.js"></script>
+  </head>
+  <body>
+    <div class="app">
+      <div id="app-header"></div>
+
+      <main class="app-main" id="app-main">
+        <div class="page-head">
+          <h1 class="page-head__title">About</h1>
+          <p class="page-head__subtitle">
+            How this base is put together and how to extend it.
+          </p>
+        </div>
+
+        <section class="page-section content-column">
+          <div class="card">
+            <h3 class="card__title">The idea</h3>
+            <p class="card__text">
+              A small, dependency-free starting point for interfaces that must
+              work well on phones first — then scale up gracefully to tablets
+              and desktops. No build step, no framework lock-in.
+            </p>
+          </div>
+        </section>
+
+        <section class="page-section content-column">
+          <h2>Project structure</h2>
+          <div class="card">
+            <p class="card__text">
+              <code>css/</code> holds tokens, base, layout, component, and
+              responsive styles. <code>js/</code> holds the app entry point,
+              config, navigation, and reusable components. <code>pages/</code>
+              holds additional pages that reuse the same shell.
+            </p>
+          </div>
+        </section>
+
+        <section class="page-section content-column">
+          <h2>Extending it</h2>
+          <div class="card">
+            <p class="card__text">
+              Add a page by copying one from <code>pages/</code>, then register
+              it in <code>js/config.js</code> under <code>NAV_ITEMS</code>. The
+              mobile bottom nav picks it up automatically.
+            </p>
+          </div>
+        </section>
+      </main>
+
+      <div id="app-footer"></div>
+    </div>
+
+    <div id="app-bottom-nav"></div>
+
+    <script type="module" src="../js/main.js"></script>
+  </body>
+</html>
