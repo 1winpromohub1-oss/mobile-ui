@@ -123,11 +123,11 @@ export function createSpinWheel(config = SPIN_WHEEL) {
   }, [
     el("h2", { class: "card__title", text: `Pay ₹${config.spinPriceRupees} to spin` }),
     el("p", { class: "card__text", text: "A ₹200 payment is required before every spin." }),
-    el("p", { class: "field__hint", text: "Demo only: no payment provider is connected and no money will be charged." }),
+    el("p", { class: "field__hint", text: "Demo flow: tapping pay opens the ₹200 UPI link in a new tab, then the wheel unlocks here. Payment is not verified — complete it in the new tab." }),
     el("button", {
       class: "btn btn--primary btn--block spin-win__payment-confirm",
       type: "button",
-      text: `Continue with demo payment · ₹${config.spinPriceRupees}`,
+      text: `Pay ₹${config.spinPriceRupees} with UPI`,
     }),
     el("p", { class: "field__hint spin-win__payment-status", role: "status", "aria-live": "polite" }),
   ]);
@@ -199,8 +199,14 @@ export function createSpinWheel(config = SPIN_WHEEL) {
   let paymentConfirmed = false;
 
   paymentConfirm.addEventListener("click", () => {
-    // UI-only confirmation. Integrate a real payment provider before treating
-    // this as a paid spin; this demo never charges the user.
+    // Demo flow: open the real ₹200 UPI link in a new tab, then unlock the
+    // wheel locally. Payment is NOT verified — treat spins as unpaid demo
+    // plays until a backend callback is wired up.
+    if (config.paymentUrl) {
+      window.open(config.paymentUrl, "_blank", "noopener");
+      paymentStatus.textContent =
+        "UPI link opened in a new tab — complete the ₹200 payment there, then spin below.";
+    }
     paymentConfirmed = true;
     paymentGate.hidden = true;
     overlayStage.hidden = false;

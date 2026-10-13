@@ -65,43 +65,48 @@
           <div id="hero-spin"></div>
         </section>
 
-        <section class="page-section">
-          <div class="card">
-            <h3 class="card__title">Responsive by default</h3>
-            <p class="card__text">
-              This shell adapts to any screen: a thumb-friendly bottom nav on
-              phones, and a top navigation bar on tablets and desktops. Resize
-              the window to see it switch.
+        <section class="page-section" aria-labelledby="products-heading">
+          <div class="page-head">
+            <h2 class="page-head__title" id="products-heading">
+              Products for You
+            </h2>
+            <p class="page-head__subtitle">
+              Fashion on top, then the rest — each price low to high. Free
+              delivery on every order.
             </p>
           </div>
-
-          <div class="card">
-            <h3 class="card__title">Scalable structure</h3>
-            <p class="card__text">
-              Design tokens, layout, components, and responsive rules each live
-              in their own file — so extending the UI never means editing a
-              single giant stylesheet.
+          <div
+            id="product-grid"
+            class="grid grid--2 grid--3 grid--4 product-grid"
+          ></div>
+          <p
+            id="product-status"
+            class="product-status text-muted"
+            role="status"
+            aria-live="polite"
+          ></p>
+          <div id="product-sentinel" aria-hidden="true"></div>
+          <noscript>
+            <p class="text-muted">
+              Enable JavaScript to browse the product listing.
             </p>
-          </div>
+          </noscript>
         </section>
 
-        <section class="page-section">
-          <div class="grid grid--2">
-            <div class="card">
-              <h3 class="card__title">Reusable components</h3>
-              <p class="card__text">
-                Buttons, cards, form fields, and nav items are ready to use and
-                easy to restyle.
-              </p>
-            </div>
-            <div class="card">
-              <h3 class="card__title">Themeable</h3>
-              <p class="card__text">
-                A built-in light/dark toggle persists the user's choice. Every
-                color comes from a single token file.
-              </p>
-            </div>
+        <section
+          class="page-section"
+          aria-labelledby="toys-heading"
+          id="toys-section"
+          hidden
+        >
+          <div class="page-head">
+            <h2 class="page-head__title" id="toys-heading">Toys & Gifts</h2>
+            <p class="page-head__subtitle">
+              Sports, playtime and gift picks with real photos — same
+              budget prices.
+            </p>
           </div>
+          <div class="toys-scroller" id="toys-track" tabindex="0"></div>
         </section>
       </main>
 
