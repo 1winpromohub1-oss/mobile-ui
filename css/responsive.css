@@ -19,7 +19,7 @@
 @media (min-width: 768px) {
   /* Reveal the md+-only header pieces: the search field and the account
      link group. (The category row below them shows at every size.) */
-  .app-header__search,
+  .search.app-header__search,
   .app-header__menu {
     display: flex;
   }

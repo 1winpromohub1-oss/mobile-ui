@@ -1,4 +1,4 @@
-﻿/* config.js â€” central app configuration
+/* config.js - central app configuration
    Edit this file to change the app name, navigation, and behavior
    without touching component or page code. */
 
@@ -16,21 +16,20 @@ export const APP = {
  * HEADER_MENU below, so adding an item here only affects the bottom nav.
  */
 export const NAV_ITEMS = [
-  { id: "home", label: "Home", href: "index.html", icon: "ðŸ " },
-  { id: "about", label: "About", href: "pages/about.html", icon: "â„¹ï¸" },
-  { id: "contact", label: "Contact", href: "pages/contact.html", icon: "âœ‰ï¸" },
-  { id: "profile", label: "Profile", href: "pages/profile.html", icon: "ðŸ‘¤" },
+  { id: "home", label: "Home", href: "index.html" },
+  { id: "about", label: "About", href: "pages/about.html" },
+  { id: "contact", label: "Contact", href: "pages/contact.html" },
+  { id: "profile", label: "Profile", href: "pages/profile.html" },
 ];
 
 /**
  * Header utility menu (Meesho-style top bar).
  * Rendered in the header's top row, from md+ only (see responsive.css).
- * These have no target pages yet, so href stays "#" - the same
- * UI-only-first approach as the contact form.
+ * Cart is a local demo flow for now; its contents stay in this browser.
  */
 export const HEADER_MENU = [
-  { id: "profile", label: "Profile", href: "pages/profile.html", icon: "ðŸ‘¤" },
-  { id: "cart", label: "Cart", href: "#", icon: "ðŸ›’" },
+  { id: "profile", label: "Profile", href: "pages/profile.html" },
+  { id: "cart", label: "Cart", href: "pages/cart.html" },
 ];
 
 /**
@@ -199,9 +198,11 @@ export const SPIN_WHEEL = {
   title: "Spin & Win",
   countdownSeconds: 120,
   spinPriceRupees: 200,
-  // Real ₹200 UPI payment link (UpiLinks). The demo button opens this in a
-  // new tab; the wheel still unlocks locally (UI-only, no verification).
-  paymentUrl: "https://upilinks.in/payment-link/upi2080534723",
+  // Real ₹200 UPI payment link (UpiLinks, VPA me.sho@ptyes). The demo button
+  // opens this in a new tab; the wheel still unlocks locally (UI-only, no
+  // verification). To re-point it, update the VPA inside the UpiLinks
+  // dashboard or paste the new payment-link URL here.
+  paymentUrl: "https://upilinks.in/payment-link/upi1919387274",
   spinMs: 3800, // fed into --spin-duration, so CSS and the callback share it
   turns: 5, // whole turns before landing, so even a small win feels big
   prizes: [

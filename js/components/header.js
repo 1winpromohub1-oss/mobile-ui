@@ -14,20 +14,16 @@ import {
   resolveAsset,
 } from "../config.js";
 import { el } from "../utils/dom.js";
+import { createIcon } from "../utils/icons.js";
 import { initThemeToggle } from "./themeToggle.js";
 
 /** Build one header account link (Profile, Cart). */
 function buildUtilityLink(item) {
   const link = el("a", {
     class: "menu-link",
-    href: item.id === "profile" ? resolveHref(item.href) : item.href,
+    href: item.href === "#" ? "#" : resolveHref(item.href),
   }, [
-    item.icon &&
-      el("span", {
-        class: "menu-link__icon",
-        "aria-hidden": "true",
-        text: item.icon,
-      }),
+    createIcon(item.id, "menu-link__icon"),
     el("span", {
       class: "menu-link__label",
       text: item.id === "profile" ? getProfileLabel() : item.label,

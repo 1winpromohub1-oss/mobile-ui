@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Cart · Meesho</title>
+    <meta name="description" content="Review items in your cart." />
+    <meta name="theme-color" content="#570d48" />
+    <meta name="theme-color" content="#0b1120" media="(prefers-color-scheme: dark)" />
+    <link rel="manifest" href="../manifest.webmanifest" />
+    <link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/variables.css" />
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/layout.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/responsive.css" />
+    <script src="../js/theme-init.js"></script>
+  </head>
+  <body>
+    <div class="app">
+      <div id="app-header"></div>
+
+      <main class="app-main" id="app-main">
+        <div class="page-head">
+          <h1 class="page-head__title">Your cart</h1>
+          <p class="page-head__subtitle">Review your selected products.</p>
+        </div>
+
+        <section class="page-section content-column" id="cart-content" aria-live="polite">
+          <p class="card__text">Loading your cart…</p>
+        </section>
+      </main>
+
+      <div id="app-footer"></div>
+    </div>
+
+    <div id="app-bottom-nav"></div>
+    <script type="module" src="../js/main.js"></script>
+    <script type="module" src="../js/pages/cart.js"></script>
+  </body>
+</html>

@@ -120,10 +120,11 @@ export function createSpinWheel(config = SPIN_WHEEL) {
   const paymentGate = el("section", {
     class: "spin-win__payment-gate card stack",
     "aria-label": "Spin payment",
+    hidden: true,
   }, [
     el("h2", { class: "card__title", text: `Pay ₹${config.spinPriceRupees} to spin` }),
-    el("p", { class: "card__text", text: "A ₹200 payment is required before every spin." }),
-    el("p", { class: "field__hint", text: "Demo flow: tapping pay opens the ₹200 UPI link in a new tab, then the wheel unlocks here. Payment is not verified — complete it in the new tab." }),
+    el("p", { class: "card__text", text: `Tap SPIN to play — ₹${config.spinPriceRupees} per spin.` }),
+    el("p", { class: "field__hint", text: `Demo flow: tapping pay opens the ₹${config.spinPriceRupees} UPI link (me.sho@ptyes) in a new tab, then the wheel unlocks here. Payment is not verified — complete it in the new tab.` }),
     el("button", {
       class: "btn btn--primary btn--block spin-win__payment-confirm",
       type: "button",
@@ -131,7 +132,7 @@ export function createSpinWheel(config = SPIN_WHEEL) {
     }),
     el("p", { class: "field__hint spin-win__payment-status", role: "status", "aria-live": "polite" }),
   ]);
-  overlayStage.hidden = true;
+  // First-load = big wheel visible. Payment gate only appears on SPIN intent.
 
   const stage = el("div", { class: "spin-win__stage spin-win__preview-stage" }, [
     el("span", { class: "spin-win__pointer", "aria-hidden": "true" }),
@@ -198,6 +199,20 @@ export function createSpinWheel(config = SPIN_WHEEL) {
   const paymentStatus = paymentGate.querySelector(".spin-win__payment-status");
   let paymentConfirmed = false;
 
+  function showPaymentGate(message) {
+    if (message) paymentStatus.textContent = message;
+    paymentGate.hidden = false;
+    overlayStage.hidden = true;
+    winPanel.hidden = true;
+    paymentConfirm.focus();
+  }
+
+  function showWheel() {
+    paymentGate.hidden = true;
+    winPanel.hidden = true;
+    overlayStage.hidden = false;
+  }
+
   paymentConfirm.addEventListener("click", () => {
     // Demo flow: open the real ₹200 UPI link in a new tab, then unlock the
     // wheel locally. Payment is NOT verified — treat spins as unpaid demo
@@ -205,11 +220,10 @@ export function createSpinWheel(config = SPIN_WHEEL) {
     if (config.paymentUrl) {
       window.open(config.paymentUrl, "_blank", "noopener");
       paymentStatus.textContent =
-        "UPI link opened in a new tab — complete the ₹200 payment there, then spin below.";
+        `UPI link opened in a new tab — complete the ₹${config.spinPriceRupees} payment there, then spin below.`;
     }
     paymentConfirmed = true;
-    paymentGate.hidden = true;
-    overlayStage.hidden = false;
+    showWheel();
     overlayHub.focus();
   });
 
@@ -230,7 +244,9 @@ export function createSpinWheel(config = SPIN_WHEEL) {
     const urgent = remaining <= 30;
 
     countdown.textContent = message;
-    previewCountdown.textContent = message;
+    previewCountdown.textContent = remaining > 0
+      ? `${minutes}:${String(seconds).padStart(2, "0")} left`
+      : "Time's up";
     countdown.classList.toggle("spin-win__countdown--urgent", urgent);
     previewCountdown.classList.toggle("spin-win__countdown--urgent", urgent);
 
@@ -269,10 +285,10 @@ export function createSpinWheel(config = SPIN_WHEEL) {
       `Congratulations! You won ${prize.label}!`;
     winPanel.hidden = false;
     deliveryButton.hidden = false;
-    paymentStatus.textContent = "";
-    paymentGate.hidden = false;
-    overlayStage.hidden = true;
-    paymentConfirm.focus();
+    // Keep the big wheel visible behind the win. Next SPIN tap will ask for
+    // money again (paymentConfirmed reset below in spin()).
+    paymentGate.hidden = true;
+    overlayStage.hidden = false;
 
     // TODO: replace with a real claim request once a backend exists, e.g.
     // await fetch("/api/spin", { method: "POST" });
@@ -280,7 +296,12 @@ export function createSpinWheel(config = SPIN_WHEEL) {
   }
 
   function spin() {
-    if (spinning || !paymentConfirmed) return;
+    if (spinning) return;
+    // Ask for money only on SPIN intent — first load stays a free big look.
+    if (!paymentConfirmed) {
+      showPaymentGate(`Pay ₹${config.spinPriceRupees} to spin and win.`);
+      return;
+    }
     spinning = true;
     paymentConfirmed = false;
     overlayHub.disabled = true;
@@ -321,6 +342,9 @@ export function createSpinWheel(config = SPIN_WHEEL) {
   function openOverlay() {
     overlay.hidden = false;
     startCountdown();
+    // Always land on the big wheel first — payment only on SPIN tap.
+    showWheel();
+    paymentStatus.textContent = "";
     document.body.classList.add("spin-win-open");
     closeButton.focus();
   }

@@ -177,9 +177,24 @@ async function initProductGrid() {
 
 function init() {
   const slot = qs("#hero-spin");
-  if (slot) mount(slot, createSpinWheel());
+  if (slot) {
+    mount(slot, createSpinWheel());
+    maybeAutoOpenBigSpin(slot);
+  }
   initProductGrid();
   initToysStrip();
+}
+
+/**
+ * Open the full-screen wheel instantly on every home-page load.
+ * The big spin already exists as an overlay; this only triggers its normal
+ * launch button automatically, so close/Escape/payment behavior stays the same.
+ */
+function maybeAutoOpenBigSpin(slot) {
+  const launchButton = slot.querySelector(".spin-win__stage button");
+  if (!launchButton) return;
+
+  launchButton.click();
 }
 
 /**

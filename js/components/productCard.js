@@ -1,15 +1,8 @@
-/* productCard.js — reusable e-com product card
-   Renders one entry from PRODUCTS (js/config.js). UI-only for now:
-   the Add button logs to the console, like the contact form TODO. */
+/* productCard.js — reusable e-com product card. */
 
 import { el } from "../utils/dom.js";
-import { resolveAsset } from "../config.js";
-
-const inr = new Intl.NumberFormat("en-IN", {
-  style: "currency",
-  currency: "INR",
-  maximumFractionDigits: 0,
-});
+import { resolveAsset, resolveHref } from "../config.js";
+import { saveSelectedProduct, formatPrice } from "../utils/products.js";
 
 function discountPct(price, mrp) {
   if (!mrp || mrp <= price) return null;
@@ -39,12 +32,17 @@ export function createProductCard(product) {
   ]);
 
   const priceRow = el("div", { class: "product-card__price-row" }, [
-    el("span", { class: "product-card__price", text: inr.format(product.price) }),
+    el("span", { class: "product-card__price", text: formatPrice(product.price) }),
     product.mrp
-      ? el("s", { class: "product-card__mrp", text: inr.format(product.mrp) })
+      ? el("s", { class: "product-card__mrp", text: formatPrice(product.mrp) })
       : null,
     pct ? el("span", { class: "product-card__off", text: `${pct}% off` }) : null,
   ]);
+
+  const openDetails = () => {
+    saveSelectedProduct(product);
+    window.location.href = resolveHref("pages/product.html");
+  };
 
   const body = el("div", { class: "product-card__body" }, [
     el("h3", { class: "product-card__name", text: product.name }),
@@ -52,16 +50,35 @@ export function createProductCard(product) {
     priceRow,
     el("p", {
       class: "product-card__meta",
-      text: `★ ${product.rating.toFixed(1)} · Free delivery`,
+      text: `★ ${Number(product.rating ?? 0).toFixed(1)} · Free delivery`,
     }),
     el("button", {
-      class: "btn btn--primary btn--block product-card__add",
+      class: "btn btn--primary btn--block product-card__buy",
       type: "button",
-      text: "Add to Cart",
-      // TODO: wire to a real cart API once server/ exists (see README).
-      onclick: () => console.log(`[cart] add ${product.id}`),
+      text: "Buy Now",
+      onclick: (event) => {
+        event.stopPropagation();
+        openDetails();
+      },
     }),
   ]);
 
-  return el("article", { class: "card product-card" }, [media, body]);
+  const card = el("article", {
+    class: "card product-card",
+    role: "link",
+    tabindex: "0",
+    "aria-label": `View ${product.name} details`,
+  }, [media, body]);
+
+  card.addEventListener("click", (event) => {
+    if (event.target.closest("button, a")) return;
+    openDetails();
+  });
+  card.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    openDetails();
+  });
+
+  return card;
 }

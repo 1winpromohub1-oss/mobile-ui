@@ -6,6 +6,7 @@
 import { NAV_ITEMS, resolveHref } from "../config.js";
 import { isActive } from "../router.js";
 import { el } from "../utils/dom.js";
+import { createIcon } from "../utils/icons.js";
 
 /** Build one bottom-nav item. */
 function buildNavItem(item) {
@@ -19,11 +20,7 @@ function buildNavItem(item) {
       "aria-label": item.label,
     },
     [
-      el("span", {
-        class: "nav-item__icon",
-        "aria-hidden": "true",
-        text: item.icon,
-      }),
+      createIcon(item.id, "nav-item__icon"),
       el("span", { class: "nav-item__label", text: item.label }),
     ]
   );
